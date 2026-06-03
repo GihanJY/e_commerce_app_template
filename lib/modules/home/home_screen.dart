@@ -59,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: _scrollController,
         slivers: [
           _buildAppBar(appController),
+          SliverToBoxAdapter(child: const SizedBox(height: 12)),
           SliverToBoxAdapter(child: _buildSearchBar()),
           SliverToBoxAdapter(child: const SizedBox(height: 16)),
           SliverToBoxAdapter(child: _buildBannerSlider()),
@@ -76,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(child: _buildSpecialOfferBanner()),
           SliverToBoxAdapter(child: const SizedBox(height: 24)),
           SliverToBoxAdapter(child: _buildNewArrivals(products)),
-          SliverToBoxAdapter(child: const SizedBox(height: 100)),
+          SliverToBoxAdapter(child: const SizedBox(height: 24)),
         ],
       ),
     );
@@ -98,103 +99,117 @@ class _HomeScreenState extends State<HomeScreen> {
               // Logo
               Row(
                 children: [
-                  Container(
-                    width: 36,
-                    height: 36,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.primaryGradient,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'L',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
+                  // Container(
+                  //   width: 36,
+                  //   height: 36,
+                  //   decoration: BoxDecoration(
+                  //     gradient: AppColors.primaryGradient,
+                  //     borderRadius: BorderRadius.circular(10),
+                  //   ),
+                  //   child: const Center(
+                  //     child: Text(
+                  //       'L',
+                  //       style: TextStyle(
+                  //         fontFamily: 'Poppins',
+                  //         fontSize: 20,
+                  //         fontWeight: FontWeight.w800,
+                  //         color: Colors.white,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(width: 8),
                   ShaderMask(
                     shaderCallback: (bounds) =>
                         AppColors.primaryGradient.createShader(bounds),
                     child: Text(
                       'LuxeMart',
-                      style: AppTextStyles.headingMedium.copyWith(color: Colors.white),
+                      style: AppTextStyles.headingMedium.copyWith(
+                        color: Colors.white,
+                        fontSize: 24
+                      ),
                     ),
                   ),
                 ],
               ),
               const Spacer(),
               // Location
-              Row(
-                children: [
-                  const Icon(Icons.location_on_outlined,
-                      color: AppColors.royalBlue, size: 16),
-                  const SizedBox(width: 4),
-                  Text(
-                    'New York, US',
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: AppColors.textDark,
-                      fontSize: 12,
-                    ),
-                  ),
-                  const Icon(Icons.keyboard_arrow_down_rounded,
-                      color: AppColors.textLight, size: 16),
-                ],
-              ),
-              const Spacer(),
+              // Row(
+              //   children: [
+              //     const Icon(
+              //       Icons.location_on_outlined,
+              //       color: AppColors.royalBlue,
+              //       size: 16,
+              //     ),
+              //     const SizedBox(width: 4),
+              //     Text(
+              //       'New York, US',
+              //       style: AppTextStyles.bodySmall.copyWith(
+              //         color: AppColors.textDark,
+              //         fontSize: 12,
+              //       ),
+              //     ),
+              //     const Icon(
+              //       Icons.keyboard_arrow_down_rounded,
+              //       color: AppColors.textLight,
+              //       size: 16,
+              //     ),
+              //   ],
+              // ),
+              // const Spacer(),
               // Actions
               Row(
                 children: [
-                  Obx(() => Stack(
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.notifications_outlined,
-                                color: AppColors.elegantBlack),
-                            onPressed: () => Get.toNamed(AppRoutes.notifications),
+                  Obx(
+                    () => Stack(
+                      children: [
+                        IconButton(
+                          icon: const Icon(
+                            Icons.notifications_outlined,
+                            color: AppColors.elegantBlack,
                           ),
-                          if (appController.notificationCount.value > 0)
-                            Positioned(
-                              right: 6,
-                              top: 6,
-                              child: Container(
-                                width: 16,
-                                height: 16,
-                                decoration: const BoxDecoration(
-                                  color: AppColors.saleRed,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    '${appController.notificationCount.value}',
-                                    style: const TextStyle(
-                                        fontSize: 9,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w700),
+                          onPressed: () => Get.toNamed(AppRoutes.notifications),
+                        ),
+                        if (appController.notificationCount.value > 0)
+                          Positioned(
+                            right: 6,
+                            top: 6,
+                            child: Container(
+                              width: 16,
+                              height: 16,
+                              decoration: const BoxDecoration(
+                                color: AppColors.saleRed,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '${appController.notificationCount.value}',
+                                  style: const TextStyle(
+                                    fontSize: 9,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                               ),
                             ),
-                        ],
-                      )),
-                  GestureDetector(
-                    onTap: () => appController.setNavIndex(4),
-                    child: Container(
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        gradient: AppColors.primaryGradient,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Center(
-                        child: Text('👤', style: TextStyle(fontSize: 18)),
-                      ),
+                          ),
+                      ],
                     ),
                   ),
+                  // GestureDetector(
+                  //   onTap: () => appController.setNavIndex(4),
+                  //   child: Container(
+                  //     width: 36,
+                  //     height: 36,
+                  //     decoration: BoxDecoration(
+                  //       gradient: AppColors.primaryGradient,
+                  //       shape: BoxShape.circle,
+                  //     ),
+                  //     child: const Center(
+                  //       child: Text('👤', style: TextStyle(fontSize: 18)),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ],
@@ -206,7 +221,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildSearchBar() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppDimensions.pagePaddingH),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppDimensions.pagePaddingH,
+      ),
       child: GestureDetector(
         onTap: () => Get.toNamed(AppRoutes.search),
         child: Container(
@@ -226,8 +243,11 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Row(
             children: [
               const SizedBox(width: 16),
-              const Icon(Icons.search_rounded,
-                  color: AppColors.textLight, size: 22),
+              const Icon(
+                Icons.search_rounded,
+                color: AppColors.textLight,
+                size: 22,
+              ),
               const SizedBox(width: 10),
               Text(
                 'Search products, brands...',
@@ -236,12 +256,19 @@ class _HomeScreenState extends State<HomeScreen> {
               const Spacer(),
               Container(
                 margin: const EdgeInsets.all(6),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   gradient: AppColors.primaryGradient,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(Icons.tune_rounded, color: Colors.white, size: 18),
+                child: const Icon(
+                  Icons.tune_rounded,
+                  color: Colors.white,
+                  size: 18,
+                ),
               ),
             ],
           ),
@@ -254,15 +281,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       children: [
         SizedBox(
-          height: 180,
+          height: 200,
           child: PageView.builder(
             controller: _bannerController,
             onPageChanged: (index) => setState(() => _bannerIndex = index),
             itemCount: DummyData.banners.length,
             padEnds: false,
-            itemBuilder: (context, index) => _BannerCard(
-              banner: DummyData.banners[index],
-            ),
+            itemBuilder: (context, index) =>
+                _BannerCard(banner: DummyData.banners[index]),
           ),
         ),
         const SizedBox(height: 12),
@@ -301,7 +327,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.pagePaddingH),
+              horizontal: AppDimensions.pagePaddingH,
+            ),
             separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemCount: DummyData.categories.length,
             itemBuilder: (context, index) {
@@ -319,11 +346,15 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(
-              horizontal: AppDimensions.pagePaddingH),
+            horizontal: AppDimensions.pagePaddingH,
+          ),
           child: Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   gradient: AppColors.primaryGradient,
                   borderRadius: BorderRadius.circular(8),
@@ -331,19 +362,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text('⚡',
-                        style: TextStyle(fontSize: 14, color: Colors.white)),
+                    const Text(
+                      '⚡',
+                      style: TextStyle(fontSize: 14, color: Colors.white),
+                    ),
                     const SizedBox(width: 6),
-                    Text('Flash Sale',
-                        style: AppTextStyles.labelLarge.copyWith(
-                            color: Colors.white, fontSize: 13)),
+                    Text(
+                      'Flash Sale',
+                      style: AppTextStyles.labelLarge.copyWith(
+                        color: Colors.white,
+                        fontSize: 13,
+                      ),
+                    ),
                   ],
                 ),
               ),
               const SizedBox(width: 12),
-              Expanded(
-                child: _CountdownTimer(),
-              ),
+              Expanded(child: _CountdownTimer()),
               TextButton(
                 onPressed: () {},
                 child: Text(
@@ -359,16 +394,18 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         const SizedBox(height: 14),
         SizedBox(
-          height: 248,
+          height: 290,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.pagePaddingH),
+              horizontal: AppDimensions.pagePaddingH,
+            ),
             separatorBuilder: (_, __) => const SizedBox(width: 14),
             itemCount: products.where((p) => p.hasDiscount).length,
             itemBuilder: (context, index) {
-              final discountedProducts =
-                  products.where((p) => p.hasDiscount).toList();
+              final discountedProducts = products
+                  .where((p) => p.hasDiscount)
+                  .toList();
               return ProductCard(product: discountedProducts[index]);
             },
           ),
@@ -384,11 +421,12 @@ class _HomeScreenState extends State<HomeScreen> {
         SectionHeader(title: 'Featured Products', onActionTap: () {}),
         const SizedBox(height: 16),
         SizedBox(
-          height: 248,
+          height: 290,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.pagePaddingH),
+              horizontal: AppDimensions.pagePaddingH,
+            ),
             separatorBuilder: (_, __) => const SizedBox(width: 14),
             itemCount: featured.length,
             itemBuilder: (context, index) =>
@@ -409,13 +447,17 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.pagePaddingH),
+              horizontal: AppDimensions.pagePaddingH,
+            ),
             separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemCount: DummyData.brands.length,
             itemBuilder: (context, index) {
               final brand = DummyData.brands[index];
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(14),
@@ -431,9 +473,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(brand.logo,
-                        style: const TextStyle(
-                            fontSize: 24, fontFamily: 'Poppins')),
+                    Text(
+                      brand.logo,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
                     const SizedBox(height: 4),
                     Text(
                       brand.name,
@@ -459,11 +505,12 @@ class _HomeScreenState extends State<HomeScreen> {
         SectionHeader(title: '🏆 Best Sellers', onActionTap: () {}),
         const SizedBox(height: 16),
         SizedBox(
-          height: 248,
+          height: 290,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.pagePaddingH),
+              horizontal: AppDimensions.pagePaddingH,
+            ),
             separatorBuilder: (_, __) => const SizedBox(width: 14),
             itemCount: bestSellers.length,
             itemBuilder: (context, index) =>
@@ -476,7 +523,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildSpecialOfferBanner() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppDimensions.pagePaddingH),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppDimensions.pagePaddingH,
+      ),
       child: Container(
         height: 120,
         decoration: BoxDecoration(
@@ -535,7 +584,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {},
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -565,11 +616,12 @@ class _HomeScreenState extends State<HomeScreen> {
         SectionHeader(title: '✨ New Arrivals', onActionTap: () {}),
         const SizedBox(height: 16),
         SizedBox(
-          height: 248,
+          height: 290,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.pagePaddingH),
+              horizontal: AppDimensions.pagePaddingH,
+            ),
             separatorBuilder: (_, __) => const SizedBox(width: 14),
             itemCount: newArrivals.length,
             itemBuilder: (context, index) =>
@@ -597,11 +649,13 @@ class _BannerCard extends StatelessWidget {
       '3': [const Color(0xFFD4AF37), const Color(0xFFB8962E)],
     };
 
-    final colors = gradients[banner.id] ??
-        [AppColors.royalBlue, AppColors.deepPurple];
+    final colors =
+        gradients[banner.id] ?? [AppColors.royalBlue, AppColors.deepPurple];
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: AppDimensions.pagePaddingH),
+      margin: const EdgeInsets.symmetric(
+        horizontal: AppDimensions.pagePaddingH,
+      ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: colors,
@@ -635,7 +689,11 @@ class _BannerCard extends StatelessWidget {
             right: 20,
             bottom: -10,
             child: Text(
-              banner.id == '1' ? '🛍️' : banner.id == '2' ? '✨' : '🔥',
+              banner.id == '1'
+                  ? '🛍️'
+                  : banner.id == '2'
+                  ? '✨'
+                  : '🔥',
               style: const TextStyle(fontSize: 80),
             ),
           ),
@@ -646,7 +704,10 @@ class _BannerCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(20),
@@ -669,7 +730,10 @@ class _BannerCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
@@ -701,7 +765,8 @@ class _CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = AppColors.categoryColors[category.colorIndex % AppColors.categoryColors.length];
+    final color = AppColors
+        .categoryColors[category.colorIndex % AppColors.categoryColors.length];
 
     return GestureDetector(
       onTap: () => Get.find<AppController>().setNavIndex(1),
@@ -781,9 +846,15 @@ class __CountdownTimerState extends State<_CountdownTimer> {
       mainAxisSize: MainAxisSize.min,
       children: [
         _TimerBox('${_hours.toString().padLeft(2, '0')}'),
-        Text(' : ', style: AppTextStyles.labelSmall.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          ' : ',
+          style: AppTextStyles.labelSmall.copyWith(fontWeight: FontWeight.w700),
+        ),
         _TimerBox('${_minutes.toString().padLeft(2, '0')}'),
-        Text(' : ', style: AppTextStyles.labelSmall.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          ' : ',
+          style: AppTextStyles.labelSmall.copyWith(fontWeight: FontWeight.w700),
+        ),
         _TimerBox('${_seconds.toString().padLeft(2, '0')}'),
       ],
     );

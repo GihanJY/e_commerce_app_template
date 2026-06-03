@@ -110,75 +110,77 @@ class ProductCard extends StatelessWidget {
               ],
             ),
             // Product Info
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.brand,
-                    style: AppTextStyles.caption.copyWith(
-                      color: AppColors.royalBlue,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 10,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.brand,
+                      style: AppTextStyles.caption.copyWith(
+                        color: AppColors.royalBlue,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 10,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    product.name,
-                    style: AppTextStyles.labelMedium.copyWith(
-                      color: AppColors.textDark,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
+                    const SizedBox(height: 2),
+                    Text(
+                      product.name,
+                      style: AppTextStyles.labelMedium.copyWith(
+                        color: AppColors.textDark,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 6),
-                  StarRating(
-                    rating: product.rating,
-                    size: 12,
-                    reviewCount: product.reviewCount,
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '\$${product.price.toStringAsFixed(2)}',
-                              style: AppTextStyles.priceSmall.copyWith(fontSize: 13),
-                            ),
-                            if (product.hasDiscount)
+                    const SizedBox(height: 6),
+                    StarRating(
+                      rating: product.rating,
+                      size: 12,
+                      reviewCount: product.reviewCount,
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
                               Text(
-                                '\$${product.originalPrice.toStringAsFixed(2)}',
-                                style: AppTextStyles.priceStrikethrough,
+                                '\$${product.price.toStringAsFixed(2)}',
+                                style: AppTextStyles.priceSmall.copyWith(fontSize: 13),
                               ),
-                          ],
-                        ),
-                      ),
-                      // Quick Add Button
-                      GestureDetector(
-                        onTap: () => appController.addToCart(product),
-                        child: Container(
-                          width: 28,
-                          height: 28,
-                          decoration: BoxDecoration(
-                            gradient: AppColors.primaryGradient,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: const Icon(
-                            Icons.add_rounded,
-                            color: Colors.white,
-                            size: 18,
+                              if (product.hasDiscount)
+                                Text(
+                                  '\$${product.originalPrice.toStringAsFixed(2)}',
+                                  style: AppTextStyles.priceStrikethrough,
+                                ),
+                            ],
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        // Quick Add Button
+                        GestureDetector(
+                          onTap: () => appController.addToCart(product),
+                          child: Container(
+                            width: 28,
+                            height: 28,
+                            decoration: BoxDecoration(
+                              gradient: AppColors.primaryGradient,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(
+                              Icons.add_rounded,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
